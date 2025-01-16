@@ -78,22 +78,17 @@
 				},
 				onTransitionStart: function(options) {
 					setTimeout(function() {
-						// plugins.preloader.removeClass('loaded');
+						plugins.preloader.removeClass('loaded');
 					}, options.duration * .75);
 				},
 				onReady: function() {
-					// plugins.preloader.addClass('loaded');
+					plugins.preloader.addClass('loaded');
 					windowReady = true;
 				}
 			});
 		}
 	});
-		alert("kaishi")
-	setTimeout(function() {
-		plugins.preloader.addClass('loaded');
-		alert("xiaoshi")
-		windowReady = true;
-	}, 3000)
+
 
 	// Initialize scripts that require a finished document
 	$(function() {

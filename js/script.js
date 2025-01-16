@@ -1,5 +1,5 @@
 "use strict";
-(function () {
+(function() {
 	// Global variables
 	var userAgent = navigator.userAgent.toLowerCase(),
 		initialDate = new Date(),
@@ -10,7 +10,8 @@
 		$body = $("body"),
 
 		isDesktop = $html.hasClass("desktop"),
-		isIE = userAgent.indexOf("msie") !== -1 ? parseInt(userAgent.split("msie")[1], 10) : userAgent.indexOf("trident") !== -1 ? 11 : userAgent.indexOf("edge") !== -1 ? 12 : false,
+		isIE = userAgent.indexOf("msie") !== -1 ? parseInt(userAgent.split("msie")[1], 10) : userAgent.indexOf("trident") !==
+		-1 ? 11 : userAgent.indexOf("edge") !== -1 ? 12 : false,
 		isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
 		windowReady = false,
 		isNoviBuilder = false,
@@ -54,32 +55,33 @@
 			searchResults: $('.rd-search-results'),
 			statefulButton: $('.btn-stateful'),
 			scroller: $(".scroll-wrap"),
-			
-			
+
+
 			viewAnimate: $('.view-animate'),
 			wow: $(".wow")
 		};
 
 	// Initialize scripts that require a loaded page
-	$window.on('load', function () {
+	$window.on('load', function() {
 		// Page loader & Page transition
 		if (plugins.preloader.length && !isNoviBuilder) {
 			pageTransition({
-				target: document.querySelector( '.page' ),
+				target: document.querySelector('.page'),
 				delay: 0,
 				duration: 500,
 				classIn: 'fadeIn',
 				classOut: 'fadeOut',
 				classActive: 'animated',
-				conditions: function (event, link) {
-					return !/(\#|callto:|tel:|mailto:|:\/\/)/.test(link) && !event.currentTarget.hasAttribute('data-lightgallery');
+				conditions: function(event, link) {
+					return !/(\#|callto:|tel:|mailto:|:\/\/)/.test(link) && !event.currentTarget.hasAttribute(
+						'data-lightgallery');
 				},
-				onTransitionStart: function ( options ) {
-					setTimeout( function () {
+				onTransitionStart: function(options) {
+					setTimeout(function() {
 						// plugins.preloader.removeClass('loaded');
-					}, options.duration * .75 );
+					}, options.duration * .75);
 				},
-				onReady: function () {
+				onReady: function() {
 					plugins.preloader.addClass('loaded');
 					windowReady = true;
 				}
@@ -87,8 +89,13 @@
 		}
 	});
 
+	setTimeout(function() {
+		plugins.preloader.addClass('loaded');
+		windowReady = true;
+	}, 3000)
+
 	// Initialize scripts that require a finished document
-	$(function () {
+	$(function() {
 		isNoviBuilder = window.xMode;
 
 		/**
@@ -164,8 +171,8 @@
 			}
 
 
-			var tempFunction = function (nextSlideItem, duration) {
-				return function () {
+			var tempFunction = function(nextSlideItem, duration) {
+				return function() {
 					nextSlideItem
 						.removeClass("not-animated")
 						.addClass(nextSlideItem.attr("data-caption-animate"))
@@ -208,10 +215,12 @@
 					if (!responsive[values[j]]["items"] && c.attr("data" + aliaces[k] + "items")) {
 						responsive[values[j]]["items"] = k < 0 ? 1 : parseInt(c.attr("data" + aliaces[k] + "items"), 10);
 					}
-					if (!responsive[values[j]]["stagePadding"] && responsive[values[j]]["stagePadding"] !== 0 && c.attr("data" + aliaces[k] + "stage-padding")) {
+					if (!responsive[values[j]]["stagePadding"] && responsive[values[j]]["stagePadding"] !== 0 && c.attr("data" +
+							aliaces[k] + "stage-padding")) {
 						responsive[values[j]]["stagePadding"] = k < 0 ? 0 : parseInt(c.attr("data" + aliaces[k] + "stage-padding"), 10);
 					}
-					if (!responsive[values[j]]["margin"] && responsive[values[j]]["margin"] !== 0 && c.attr("data" + aliaces[k] + "margin")) {
+					if (!responsive[values[j]]["margin"] && responsive[values[j]]["margin"] !== 0 && c.attr("data" + aliaces[k] +
+							"margin")) {
 						responsive[values[j]]["margin"] = k < 0 ? 30 : parseInt(c.attr("data" + aliaces[k] + "margin"), 10);
 					}
 				}
@@ -219,7 +228,7 @@
 
 			// Enable custom pagination
 			if (c.attr('data-dots-custom')) {
-				c.on("initialized.owl.carousel", function (event) {
+				c.on("initialized.owl.carousel", function(event) {
 					var carousel = $(event.currentTarget),
 						customPag = $(carousel.attr("data-dots-custom")),
 						active = 0;
@@ -231,19 +240,19 @@
 					carousel.trigger('to.owl.carousel', [active, 300, true]);
 					customPag.find("[data-owl-item='" + active + "']").addClass("active");
 
-					customPag.find("[data-owl-item]").on('click', function (e) {
+					customPag.find("[data-owl-item]").on('click', function(e) {
 						e.preventDefault();
 						carousel.trigger('to.owl.carousel', [parseInt(this.getAttribute("data-owl-item"), 10), 300, true]);
 					});
 
-					carousel.on("translate.owl.carousel", function (event) {
+					carousel.on("translate.owl.carousel", function(event) {
 						customPag.find(".active").removeClass("active");
 						customPag.find("[data-owl-item='" + event.item.index + "']").addClass("active")
 					});
 				});
 			}
 
-			c.on("initialized.owl.carousel", function () {
+			c.on("initialized.owl.carousel", function() {
 				initLightGalleryItem(c.find('[data-lightgallery="item"]'), 'lightGallery-in-carousel');
 			});
 
@@ -262,14 +271,14 @@
 				animateIn: c.attr('data-animation-in') ? c.attr('data-animation-in') : false,
 				animateOut: c.attr('data-animation-out') ? c.attr('data-animation-out') : false,
 				responsive: responsive,
-				navText: function () {
+				navText: function() {
 					try {
 						return JSON.parse(c.attr("data-nav-text"));
 					} catch (e) {
 						return [];
 					}
 				}(),
-				navClass: function () {
+				navClass: function() {
 					try {
 						return JSON.parse(c.attr("data-nav-class"));
 					} catch (e) {
@@ -291,7 +300,9 @@
 					coordinates.lng
 				), marker, map)
 			} catch (e) {
-				map.geocoder.geocode({'address': str}, function (results, status) {
+				map.geocoder.geocode({
+					'address': str
+				}, function(results, status) {
 					if (status === google.maps.GeocoderStatus.OK) {
 						var latitude = results[0].geometry.location.lat();
 						var longitude = results[0].geometry.location.lng();
@@ -312,9 +323,9 @@
 		 */
 		function isScrolledIntoView(elem) {
 			if (!isNoviBuilder) {
-				return elem.offset().top + elem.outerHeight() >= $window.scrollTop() && elem.offset().top <= $window.scrollTop() + $window.height();
-			}
-			else {
+				return elem.offset().top + elem.outerHeight() >= $window.scrollTop() && elem.offset().top <= $window.scrollTop() +
+					$window.height();
+			} else {
 				return true;
 			}
 		}
@@ -334,13 +345,13 @@
 				liveCount: options.liveCount,
 				filter: options.filter,
 				template: options.template
-			}, function (data) {
+			}, function(data) {
 				options.processed++;
 				var live = $('#' + options.live);
 				if ((options.processed === options.current) && !live.hasClass('cleared')) {
 					live.find('> #search-results').removeClass('active');
 					live.html(data);
-					setTimeout(function () {
+					setTimeout(function() {
 						live.find('> #search-results').addClass('active');
 					}, 50);
 				}
@@ -358,25 +369,28 @@
 				name: 'PhoneNumber',
 				defaultMessage: 'Invalid phone number format',
 				validator: function() {
-					if ( this.value === '' ) return true;
-					else return /^(\+\d)?[0-9\-\(\) ]{5,}$/i.test( this.value );
+					if (this.value === '') return true;
+					else return /^(\+\d)?[0-9\-\(\) ]{5,}$/i.test(this.value);
 				}
 			});
 
 			for (var i = 0; i < elements.length; i++) {
-				var o = $(elements[i]), v;
+				var o = $(elements[i]),
+					v;
 				o.addClass("form-control-has-validation").after("<span class='form-validation'></span>");
 				v = o.parent().find(".form-validation");
 				if (v.is(":last-child")) o.addClass("form-control-last-child");
 			}
 
-			elements.on('input change propertychange blur', function (e) {
-				var $this = $(this), results;
+			elements.on('input change propertychange blur', function(e) {
+				var $this = $(this),
+					results;
 
-				if (e.type !== "blur") if (!$this.parent().hasClass("has-error")) return;
+				if (e.type !== "blur")
+					if (!$this.parent().hasClass("has-error")) return;
 				if ($this.parents('.rd-mailform').hasClass('success')) return;
 
-				if (( results = $this.regula('validate') ).length) {
+				if ((results = $this.regula('validate')).length) {
 					for (i = 0; i < results.length; i++) {
 						$this.siblings(".form-validation").text(results[i].message).parent().addClass("has-error");
 					}
@@ -385,8 +399,7 @@
 				}
 			}).regula('bind');
 
-			var regularConstraintsMessages = [
-				{
+			var regularConstraintsMessages = [{
 					type: regula.Constraint.Required,
 					newMessage: "The text field is required."
 				},
@@ -466,7 +479,7 @@
 					.closest('.form-wrap')
 					.addClass('has-error');
 
-				captcha.on('propertychange', function () {
+				captcha.on('propertychange', function() {
 					var $this = $(this),
 						captchaToken = $this.find('.g-recaptcha-response').val();
 
@@ -491,17 +504,16 @@
 		/**
 		 * @desc Initialize Google reCaptcha
 		 */
-		window.onloadCaptchaCallback = function () {
+		window.onloadCaptchaCallback = function() {
 			for (var i = 0; i < plugins.captcha.length; i++) {
 				var $capthcaItem = $(plugins.captcha[i]);
 
 				grecaptcha.render(
-					$capthcaItem.attr('id'),
-					{
+					$capthcaItem.attr('id'), {
 						sitekey: $capthcaItem.attr('data-sitekey'),
 						size: $capthcaItem.attr('data-size') ? $capthcaItem.attr('data-size') : 'normal',
 						theme: $capthcaItem.attr('data-theme') ? $capthcaItem.attr('data-theme') : 'light',
-						callback: function (e) {
+						callback: function(e) {
 							$('.recaptcha').trigger('propertychange');
 						}
 					}
@@ -518,9 +530,13 @@
 			plugins.bootstrapTooltip.tooltip('dispose');
 
 			if (window.innerWidth < 576) {
-				plugins.bootstrapTooltip.tooltip({placement: 'bottom'});
+				plugins.bootstrapTooltip.tooltip({
+					placement: 'bottom'
+				});
 			} else {
-				plugins.bootstrapTooltip.tooltip({placement: tooltipPlacement});
+				plugins.bootstrapTooltip.tooltip({
+					placement: tooltipPlacement
+				});
 			}
 		}
 
@@ -550,7 +566,7 @@
 		 */
 		function initDynamicLightGallery(itemsToInit, addClass) {
 			if (!isNoviBuilder) {
-				$(itemsToInit).on("click", function () {
+				$(itemsToInit).on("click", function() {
 					$(itemsToInit).lightGallery({
 						thumbnail: $(itemsToInit).attr("data-lg-thumbnail") !== "false",
 						selector: "[data-lightgallery='item']",
@@ -596,18 +612,18 @@
 		 * @param {object} element - jQuery object
 		 * @param {function} func - init function
 		 */
-		function lazyInit( element, func ) {
-			var scrollHandler = function () {
-				if ( ( !element.hasClass( 'lazy-loaded' ) && ( isScrolledIntoView( element ) ) ) ) {
+		function lazyInit(element, func) {
+			var scrollHandler = function() {
+				if ((!element.hasClass('lazy-loaded') && (isScrolledIntoView(element)))) {
 					func.call();
-					element.addClass( 'lazy-loaded' );
+					element.addClass('lazy-loaded');
 				}
 			};
 
 			scrollHandler();
-			$window.on( 'scroll', scrollHandler );
+			$window.on('scroll', scrollHandler);
 		}
-		
+
 		// Google ReCaptcha
 		if (plugins.captcha.length) {
 			$.getScript("//www.google.com/recaptcha/api.js?onload=onloadCaptchaCallback&render=explicit&hl=en");
@@ -626,7 +642,7 @@
 
 			if (isIE < 11) {
 				$.getScript('js/pointer-events.min.js')
-					.done(function () {
+					.done(function() {
 						$html.addClass("ie-10");
 						PointerEventsPolyfill.initialize({});
 					});
@@ -646,7 +662,7 @@
 			var tooltipPlacement = plugins.bootstrapTooltip.attr('data-placement');
 			initBootstrapTooltip(tooltipPlacement);
 
-			$window.on('resize orientationchange', function () {
+			$window.on('resize orientationchange', function() {
 				initBootstrapTooltip(tooltipPlacement);
 			})
 		}
@@ -656,7 +672,7 @@
 			for (var i = 0; i < plugins.bootstrapModalDialog.length; i++) {
 				var modalItem = $(plugins.bootstrapModalDialog[i]);
 
-				modalItem.on('hidden.bs.modal', $.proxy(function () {
+				modalItem.on('hidden.bs.modal', $.proxy(function() {
 					var activeModal = $(this),
 						rdVideoInside = activeModal.find('video'),
 						youTubeVideoInside = activeModal.find('iframe');
@@ -681,18 +697,17 @@
 			if (window.innerWidth < 767) {
 				plugins.popover.attr('data-placement', 'bottom');
 				plugins.popover.popover();
-			}
-			else {
+			} else {
 				plugins.popover.popover();
 			}
 		}
 
 		// Bootstrap Buttons
 		if (plugins.statefulButton.length) {
-			$(plugins.statefulButton).on('click', function () {
+			$(plugins.statefulButton).on('click', function() {
 				var statefulButtonLoading = $(this).button('loading');
 
-				setTimeout(function () {
+				setTimeout(function() {
 					statefulButtonLoading.button('reset')
 				}, 2000);
 			})
@@ -705,11 +720,11 @@
 
 				//If have slick carousel inside tab - resize slick carousel on click
 				if (bootstrapTabsItem.find('.slick-slider').length) {
-					bootstrapTabsItem.find('.tabs-custom-list > li > a').on('click', $.proxy(function () {
+					bootstrapTabsItem.find('.tabs-custom-list > li > a').on('click', $.proxy(function() {
 						var $this = $(this);
 						var setTimeOutTime = isNoviBuilder ? 1500 : 300;
 
-						setTimeout(function () {
+						setTimeout(function() {
 							$this.find('.tab-content .tab-pane.active .slick-slider').slick('setPosition');
 						}, setTimeOutTime);
 					}, bootstrapTabsItem));
@@ -764,10 +779,12 @@
 					responsiveNavbar[values[i]]['deviceLayout'] = plugins.rdNavbar.attr('data' + aliaces[i] + 'device-layout');
 				}
 				if (plugins.rdNavbar.attr('data' + aliaces[i] + 'hover-on')) {
-					responsiveNavbar[values[i]]['focusOnHover'] = plugins.rdNavbar.attr('data' + aliaces[i] + 'hover-on') === 'true';
+					responsiveNavbar[values[i]]['focusOnHover'] = plugins.rdNavbar.attr('data' + aliaces[i] + 'hover-on') ===
+						'true';
 				}
 				if (plugins.rdNavbar.attr('data' + aliaces[i] + 'auto-height')) {
-					responsiveNavbar[values[i]]['autoHeight'] = plugins.rdNavbar.attr('data' + aliaces[i] + 'auto-height') === 'true';
+					responsiveNavbar[values[i]]['autoHeight'] = plugins.rdNavbar.attr('data' + aliaces[i] + 'auto-height') ===
+						'true';
 				}
 
 				if (isNoviBuilder) {
@@ -784,20 +801,21 @@
 
 			plugins.rdNavbar.RDNavbar({
 				anchorNav: !isNoviBuilder,
-				stickUpClone: (plugins.rdNavbar.attr("data-stick-up-clone") && !isNoviBuilder) ? plugins.rdNavbar.attr("data-stick-up-clone") === 'true' : false,
+				stickUpClone: (plugins.rdNavbar.attr("data-stick-up-clone") && !isNoviBuilder) ? plugins.rdNavbar.attr(
+					"data-stick-up-clone") === 'true' : false,
 				responsive: responsiveNavbar,
 				callbacks: {
-					onStuck: function () {
+					onStuck: function() {
 						var navbarSearch = this.$element.find('.rd-search input');
 
 						if (navbarSearch) {
 							navbarSearch.val('').trigger('propertychange');
 						}
 					},
-					onDropdownOver: function () {
+					onDropdownOver: function() {
 						return !isNoviBuilder;
 					},
-					onUnstuck: function () {
+					onUnstuck: function() {
 						if (this.$clone === null)
 							return;
 
@@ -821,7 +839,8 @@
 		// RD Search
 		if (plugins.search.length || plugins.searchResults) {
 			var handler = "bat/rd-search.php";
-			var defaultTemplate = '<h5 class="search-title"><a target="_top" href="#{href}" class="search-link">#{title}</a></h5>' +
+			var defaultTemplate =
+				'<h5 class="search-title"><a target="_top" href="#{href}" class="search-link">#{title}</a></h5>' +
 				'<p>...#{token}...</p>' +
 				'<p class="match"><em>Terms matched: #{count} - URL: #{href}</em></p>';
 			var defaultFilter = '*.html';
@@ -835,13 +854,15 @@
 							template: (searchItem.attr('data-search-template')) ? searchItem.attr('data-search-template') : defaultTemplate,
 							live: (searchItem.attr('data-search-live')) ? searchItem.attr('data-search-live') : false,
 							liveCount: (searchItem.attr('data-search-live-count')) ? parseInt(searchItem.attr('data-search-live'), 10) : 4,
-							current: 0, processed: 0, timer: {}
+							current: 0,
+							processed: 0,
+							timer: {}
 						};
 
 					var $toggle = $('.rd-navbar-search-toggle');
 					if ($toggle.length) {
-						$toggle.on('click', (function (searchItem) {
-							return function () {
+						$toggle.on('click', (function(searchItem) {
+							return function() {
 								if (!($(this).hasClass('active'))) {
 									searchItem.find('input').val('').trigger('propertychange');
 								}
@@ -852,7 +873,7 @@
 					if (options.live) {
 						var clearHandler = false;
 
-						searchItem.find('input').on("input propertychange", $.proxy(function () {
+						searchItem.find('input').on("input propertychange", $.proxy(function() {
 							this.term = this.element.find('input').val().trim();
 							this.spin = this.element.find('.input-group-addon');
 
@@ -864,7 +885,7 @@
 								if (clearHandler === false) {
 									clearHandler = true;
 
-									$body.on("click", function (e) {
+									$body.on("click", function(e) {
 										if ($(e.toElement).parents('.rd-search').length === 0) {
 											$('#rd-search-results-live').addClass('cleared').html('');
 										}
@@ -877,7 +898,7 @@
 						}, options, this));
 					}
 
-					searchItem.submit($.proxy(function () {
+					searchItem.submit($.proxy(function() {
 						$('<input />').attr('type', 'hidden')
 							.attr('name', "filter")
 							.attr('value', this.filter)
@@ -898,7 +919,7 @@
 						filter: match[2],
 						template: defaultTemplate,
 						live: ''
-					}, function (data) {
+					}, function(data) {
 						plugins.searchResults.html(data);
 					})
 				}
@@ -909,11 +930,11 @@
 		if (plugins.viewAnimate.length) {
 			for (var i = 0; i < plugins.viewAnimate.length; i++) {
 				var $view = $(plugins.viewAnimate[i]).not('.active');
-				$document.on("scroll", $.proxy(function () {
-					if (isScrolledIntoView(this)) {
-						this.addClass("active");
-					}
-				}, $view))
+				$document.on("scroll", $.proxy(function() {
+						if (isScrolledIntoView(this)) {
+							this.addClass("active");
+						}
+					}, $view))
 					.trigger("scroll");
 			}
 		}
@@ -947,7 +968,8 @@
 					.end();
 
 				s.swiper({
-					autoplay: s.attr('data-autoplay') ? s.attr('data-autoplay') === "false" ? undefined : s.attr('data-autoplay') : 5000,
+					autoplay: s.attr('data-autoplay') ? s.attr('data-autoplay') === "false" ? undefined : s.attr('data-autoplay') :
+						5000,
 					direction: s.attr('data-direction') ? s.attr('data-direction') : "horizontal",
 					effect: s.attr('data-slide-effect') ? s.attr('data-slide-effect') : "slide",
 					speed: s.attr('data-slide-speed') ? s.attr('data-slide-speed') : 600,
@@ -958,7 +980,8 @@
 					prevButton: prev.length ? prev.get(0) : null,
 					pagination: pag.length ? pag.get(0) : null,
 					paginationClickable: pag.length ? pag.attr("data-clickable") !== "false" : false,
-					paginationBulletRender: pag.length ? pag.attr("data-index-bullet") === "true" ? function (swiper, index, className) {
+					paginationBulletRender: pag.length ? pag.attr("data-index-bullet") === "true" ? function(swiper, index,
+						className) {
 						return '<span class="' + className + '">' + (index + 1) + '</span>';
 					} : null : null,
 					scrollbar: bar.length ? bar.get(0) : null,
@@ -966,21 +989,21 @@
 					scrollbarHide: bar.length ? bar.attr("data-draggable") === "false" : false,
 					loop: isNoviBuilder ? false : s.attr('data-loop') !== "false",
 					simulateTouch: s.attr('data-simulate-touch') && !isNoviBuilder ? s.attr('data-simulate-touch') === "true" : false,
-					onTransitionStart: function (swiper) {
+					onTransitionStart: function(swiper) {
 						toggleSwiperInnerVideos(swiper);
 					},
-					onTransitionEnd: function (swiper) {
+					onTransitionEnd: function(swiper) {
 						toggleSwiperCaptionAnimation(swiper);
 					},
-					onInit: function (swiper) {
+					onInit: function(swiper) {
 						toggleSwiperInnerVideos(swiper);
 						toggleSwiperCaptionAnimation(swiper);
 						initLightGalleryItem(s.find('[data-lightgallery="item"]'), 'lightGallery-in-carousel');
 					}
 				});
 
-				$window.on("resize", (function (s) {
-					return function () {
+				$window.on("resize", (function(s) {
+					return function() {
 						var mh = getSwiperHeight(s, "min-height"),
 							h = getSwiperHeight(s, "height");
 						if (h) {
@@ -1008,7 +1031,8 @@
 				var isotopeItem = plugins.isotope[i],
 					isotopeInitAttrs = {
 						itemSelector: '.isotope-item',
-						layoutMode: isotopeItem.getAttribute('data-isotope-layout') ? isotopeItem.getAttribute('data-isotope-layout') : 'masonry',
+						layoutMode: isotopeItem.getAttribute('data-isotope-layout') ? isotopeItem.getAttribute('data-isotope-layout') :
+							'masonry',
 						filter: '*'
 					};
 
@@ -1027,7 +1051,7 @@
 			}
 
 
-			setTimeout(function () {
+			setTimeout(function() {
 				for (var i = 0; i < isogroup.length; i++) {
 					isogroup[i].element.className += " isotope--loaded";
 					isogroup[i].layout();
@@ -1036,7 +1060,7 @@
 
 			var resizeTimout;
 
-			$("[data-isotope-filter]").on("click", function (e) {
+			$("[data-isotope-filter]").on("click", function(e) {
 				e.preventDefault();
 				var filter = $(this);
 				clearTimeout(resizeTimout);
@@ -1046,7 +1070,8 @@
 					isotopeAttrs = {
 						itemSelector: '.isotope-item',
 						layoutMode: iso.attr('data-isotope-layout') ? iso.attr('data-isotope-layout') : 'masonry',
-						filter: this.getAttribute("data-isotope-filter") === '*' ? '*' : '[data-filter*="' + this.getAttribute("data-isotope-filter") + '"]'
+						filter: this.getAttribute("data-isotope-filter") === '*' ? '*' : '[data-filter*="' + this.getAttribute(
+							"data-isotope-filter") + '"]'
 					};
 				if (iso.attr('data-column-width')) {
 					isotopeAttrs.masonry = {
@@ -1086,7 +1111,7 @@
 				$mailchimpItem.attr('novalidate', 'true');
 				$email.attr('name', 'EMAIL');
 
-				$mailchimpItem.on('submit', $.proxy( function ( $email, event ) {
+				$mailchimpItem.on('submit', $.proxy(function($email, event) {
 					event.preventDefault();
 
 					var $this = this;
@@ -1104,27 +1129,27 @@
 						data: data,
 						url: url,
 						dataType: 'jsonp',
-						error: function (resp, text) {
+						error: function(resp, text) {
 							$output.html('Server error: ' + text);
 
-							setTimeout(function () {
+							setTimeout(function() {
 								$output.removeClass("active");
 							}, 4000);
 						},
-						success: function (resp) {
+						success: function(resp) {
 							$output.html(resp.msg).addClass('active');
 							$email[0].value = '';
-							var $label = $('[for="'+ $email.attr( 'id' ) +'"]');
-							if ( $label.length ) $label.removeClass( 'focus not-empty' );
+							var $label = $('[for="' + $email.attr('id') + '"]');
+							if ($label.length) $label.removeClass('focus not-empty');
 
-							setTimeout(function () {
+							setTimeout(function() {
 								$output.removeClass("active");
 							}, 6000);
 						},
-						beforeSend: function (data) {
+						beforeSend: function(data) {
 							var isNoviBuilder = window.xMode;
 
-							var isValidated = (function () {
+							var isValidated = (function() {
 								var results, errors = 0;
 								var elements = $this.find('[data-constraints]');
 								var captcha = null;
@@ -1162,7 +1187,7 @@
 					});
 
 					return false;
-				}, $mailchimpItem, $email ));
+				}, $mailchimpItem, $email));
 			}
 		}
 
@@ -1171,7 +1196,7 @@
 			for (i = 0; i < plugins.campaignMonitor.length; i++) {
 				var $campaignItem = $(plugins.campaignMonitor[i]);
 
-				$campaignItem.on('submit', $.proxy(function (e) {
+				$campaignItem.on('submit', $.proxy(function(e) {
 					var data = {},
 						url = this.attr('action'),
 						dataArray = this.serializeArray(),
@@ -1186,21 +1211,21 @@
 						data: data,
 						url: url,
 						dataType: 'jsonp',
-						error: function (resp, text) {
+						error: function(resp, text) {
 							$output.html('Server error: ' + text);
 
-							setTimeout(function () {
+							setTimeout(function() {
 								$output.removeClass("active");
 							}, 4000);
 						},
-						success: function (resp) {
+						success: function(resp) {
 							$output.html(resp.Message).addClass('active');
 
-							setTimeout(function () {
+							setTimeout(function() {
 								$output.removeClass("active");
 							}, 6000);
 						},
-						beforeSend: function (data) {
+						beforeSend: function(data) {
 							// Stop request if builder or inputs are invalide
 							if (isNoviBuilder || !isValidated($this.find('[data-constraints]')))
 								return false;
@@ -1213,8 +1238,8 @@
 					var inputs = $this[0].getElementsByTagName('input');
 					for (var i = 0; i < inputs.length; i++) {
 						inputs[i].value = '';
-						var label = document.querySelector( '[for="'+ inputs[i].getAttribute( 'id' ) +'"]' );
-						if( label ) label.classList.remove( 'focus', 'not-empty' );
+						var label = document.querySelector('[for="' + inputs[i].getAttribute('id') + '"]');
+						if (label) label.classList.remove('focus', 'not-empty');
 					}
 
 					return false;
@@ -1244,7 +1269,7 @@
 						"form-type": $form.attr("data-form-type") || "contact",
 						"counter": i
 					},
-					beforeSubmit: function (arr, $form, options) {
+					beforeSubmit: function(arr, $form, options) {
 						if (isNoviBuilder)
 							return;
 
@@ -1269,17 +1294,20 @@
 								formHasCaptcha = true;
 
 								$.ajax({
-									method: "POST",
-									url: "bat/reCaptcha.php",
-									data: {'g-recaptcha-response': captchaToken},
-									async: false
-								})
-									.done(function (responceCode) {
+										method: "POST",
+										url: "bat/reCaptcha.php",
+										data: {
+											'g-recaptcha-response': captchaToken
+										},
+										async: false
+									})
+									.done(function(responceCode) {
 										if (responceCode !== 'CPT000') {
 											if (output.hasClass("snackbars")) {
-												output.html('<p><span class="icon text-middle mdi mdi-check icon-xxs"></span><span>' + captchaMsg[responceCode] + '</span></p>')
+												output.html('<p><span class="icon text-middle mdi mdi-check icon-xxs"></span><span>' + captchaMsg[
+													responceCode] + '</span></p>')
 
-												setTimeout(function () {
+												setTimeout(function() {
 													output.removeClass("active");
 												}, 3500);
 
@@ -1300,14 +1328,16 @@
 							form.addClass('form-in-process');
 
 							if (output.hasClass("snackbars")) {
-								output.html('<p><span class="icon text-middle fa fa-circle-o-notch fa-spin icon-xxs"></span><span>Sending</span></p>');
+								output.html(
+									'<p><span class="icon text-middle fa fa-circle-o-notch fa-spin icon-xxs"></span><span>Sending</span></p>'
+								);
 								output.addClass("active");
 							}
 						} else {
 							return false;
 						}
 					},
-					error: function (result) {
+					error: function(result) {
 						if (isNoviBuilder)
 							return;
 
@@ -1321,7 +1351,7 @@
 							grecaptcha.reset();
 						}
 					},
-					success: function (result) {
+					success: function(result) {
 						if (isNoviBuilder)
 							return;
 
@@ -1342,13 +1372,16 @@
 
 						if (result === "MF000") {
 							if (output.hasClass("snackbars")) {
-								output.html('<p><span class="icon text-middle mdi mdi-check icon-xxs"></span><span>' + msg[result] + '</span></p>');
+								output.html('<p><span class="icon text-middle mdi mdi-check icon-xxs"></span><span>' + msg[result] +
+									'</span></p>');
 							} else {
 								output.addClass("active success");
 							}
 						} else {
 							if (output.hasClass("snackbars")) {
-								output.html(' <p class="snackbars-left"><span class="icon icon-xxs mdi mdi-alert-outline text-middle"></span><span>' + msg[result] + '</span></p>');
+								output.html(
+									' <p class="snackbars-left"><span class="icon icon-xxs mdi mdi-alert-outline text-middle"></span><span>' +
+									msg[result] + '</span></p>');
 							} else {
 								output.addClass("active error");
 							}
@@ -1362,7 +1395,7 @@
 
 						form.find('input, textarea').trigger('blur');
 
-						setTimeout(function () {
+						setTimeout(function() {
 							output.removeClass("active error success");
 							form.removeClass('success');
 						}, 3500);
@@ -1410,7 +1443,7 @@
 			for (var i = 0; i < plugins.customToggle.length; i++) {
 				var $this = $(plugins.customToggle[i]);
 
-				$this.on('click', $.proxy(function (event) {
+				$this.on('click', $.proxy(function(event) {
 					event.preventDefault();
 
 					var $ctx = $(this);
@@ -1418,18 +1451,19 @@
 				}, $this));
 
 				if ($this.attr("data-custom-toggle-hide-on-blur") === "true") {
-					$body.on("click", $this, function (e) {
-						if (e.target !== e.data[0]
-							&& $(e.data.attr('data-custom-toggle')).find($(e.target)).length
-							&& e.data.find($(e.target)).length === 0) {
+					$body.on("click", $this, function(e) {
+						if (e.target !== e.data[0] &&
+							$(e.data.attr('data-custom-toggle')).find($(e.target)).length &&
+							e.data.find($(e.target)).length === 0) {
 							$(e.data.attr('data-custom-toggle')).add(e.data[0]).removeClass('active');
 						}
 					})
 				}
 
 				if ($this.attr("data-custom-toggle-disable-on-blur") === "true") {
-					$body.on("click", $this, function (e) {
-						if (e.target !== e.data[0] && $(e.data.attr('data-custom-toggle')).find($(e.target)).length === 0 && e.data.find($(e.target)).length === 0) {
+					$body.on("click", $this, function(e) {
+						if (e.target !== e.data[0] && $(e.data.attr('data-custom-toggle')).find($(e.target)).length === 0 && e.data.find(
+								$(e.target)).length === 0) {
 							$(e.data.attr('data-custom-toggle')).add(e.data[0]).removeClass('active');
 						}
 					})
@@ -1441,19 +1475,19 @@
 		if (plugins.counter.length) {
 			for (var i = 0; i < plugins.counter.length; i++) {
 				var $counterNotAnimated = $(plugins.counter[i]).not('.animated');
-				$document.on("scroll", $.proxy(function () {
-					var $this = this;
+				$document.on("scroll", $.proxy(function() {
+						var $this = this;
 
-					if ((!$this.hasClass("animated")) && (isScrolledIntoView($this))) {
-						$this.countTo({
-							refreshInterval: 40,
-							from: 0,
-							to: parseInt($this.text(), 10),
-							speed: $this.attr("data-speed") || 1000
-						});
-						$this.addClass('animated');
-					}
-				}, $counterNotAnimated))
+						if ((!$this.hasClass("animated")) && (isScrolledIntoView($this))) {
+							$this.countTo({
+								refreshInterval: 40,
+								from: 0,
+								to: parseInt($this.text(), 10),
+								speed: $this.attr("data-speed") || 1000
+							});
+							$this.addClass('animated');
+						}
+					}, $counterNotAnimated))
 					.trigger("scroll");
 			}
 		}
@@ -1494,8 +1528,8 @@
 					fg_width: dateCountdownItem.attr("data-width") ? dateCountdownItem.attr("data-width") : 0.03
 				});
 
-				(function (dateCountdownItem, time) {
-					$window.on('load resize orientationchange', function () {
+				(function(dateCountdownItem, time) {
+					$window.on('load resize orientationchange', function() {
 						if (window.innerWidth < 479) {
 							dateCountdownItem.TimeCircles({
 								time: {
@@ -1547,7 +1581,9 @@
 								}
 							}).rebuild();
 						} else {
-							dateCountdownItem.TimeCircles({time: time}).rebuild();
+							dateCountdownItem.TimeCircles({
+								time: time
+							}).rebuild();
 						}
 					});
 
@@ -1560,27 +1596,30 @@
 		if (plugins.circleProgress.length) {
 			for (var i = 0; i < plugins.circleProgress.length; i++) {
 				var circleProgressItem = $(plugins.circleProgress[i]);
-				$document.on("scroll", $.proxy(function () {
-					var $this = $(this);
+				$document.on("scroll", $.proxy(function() {
+						var $this = $(this);
 
-					if (!$this.hasClass('animated') && isScrolledIntoView($this)) {
+						if (!$this.hasClass('animated') && isScrolledIntoView($this)) {
 
-						var arrayGradients = $this.attr('data-gradient').split(",");
+							var arrayGradients = $this.attr('data-gradient').split(",");
 
-						$this.circleProgress({
-							value: $this.attr('data-value'),
-							size: $this.attr('data-size') ? $this.attr('data-size') : 175,
-							fill: {gradient: arrayGradients, gradientAngle: Math.PI / 4},
-							startAngle: -Math.PI / 4 * 2,
-							emptyFill: $this.attr('data-empty-fill') ? $this.attr('data-empty-fill') : "rgb(245,245,245)",
-							thickness: $this.attr('data-thickness') ? parseInt($this.attr('data-thickness'), 10) : 10
+							$this.circleProgress({
+								value: $this.attr('data-value'),
+								size: $this.attr('data-size') ? $this.attr('data-size') : 175,
+								fill: {
+									gradient: arrayGradients,
+									gradientAngle: Math.PI / 4
+								},
+								startAngle: -Math.PI / 4 * 2,
+								emptyFill: $this.attr('data-empty-fill') ? $this.attr('data-empty-fill') : "rgb(245,245,245)",
+								thickness: $this.attr('data-thickness') ? parseInt($this.attr('data-thickness'), 10) : 10
 
-						}).on('circle-animation-progress', function (event, progress, stepValue) {
-							$(this).find('span').text(String(stepValue.toFixed(2)).replace('0.', '').replace('1.', '1'));
-						});
-						$this.addClass('animated');
-					}
-				}, circleProgressItem))
+							}).on('circle-animation-progress', function(event, progress, stepValue) {
+								$(this).find('span').text(String(stepValue.toFixed(2)).replace('0.', '').replace('1.', '1'));
+							});
+							$this.addClass('animated');
+						}
+					}, circleProgressItem))
 					.trigger("scroll");
 			}
 		}
@@ -1589,11 +1628,13 @@
 		if (plugins.progressLinear.length) {
 			for (i = 0; i < plugins.progressLinear.length; i++) {
 				var progressBar = $(plugins.progressLinear[i]);
-				$window.on("scroll load", $.proxy(function () {
+				$window.on("scroll load", $.proxy(function() {
 					var bar = $(this);
 					if (!bar.hasClass('animated-first') && isScrolledIntoView(bar)) {
 						var end = parseInt($(this).find('.progress-value').text(), 10);
-						bar.find('.progress-bar-linear').css({width: end + '%'});
+						bar.find('.progress-bar-linear').css({
+							width: end + '%'
+						});
 						bar.find('.progress-value').countTo({
 							refreshInterval: 40,
 							from: 0,
@@ -1612,8 +1653,8 @@
 				plugins.materialParallax.parallax();
 
 				// heavy pages fix
-				$window.on('load', function () {
-					setTimeout(function () {
+				$window.on('load', function() {
+					setTimeout(function() {
 						$window.scroll();
 					}, 500);
 				});
@@ -1638,7 +1679,9 @@
 				scrollerItem.mCustomScrollbar({
 					theme: scrollerItem.attr('data-theme') ? scrollerItem.attr('data-theme') : 'minimal',
 					scrollInertia: 100,
-					scrollButtons: {enable: false}
+					scrollButtons: {
+						enable: false
+					}
 				});
 			}
 		}
@@ -1648,7 +1691,7 @@
 			for (var i = 0; i < plugins.layoutToggle.length; i++) {
 				var $layoutToggleElement = $(plugins.layoutToggle[i]);
 
-				$layoutToggleElement.on('click', function () {
+				$layoutToggleElement.on('click', function() {
 					sessionStorage.setItem('pageLayoutBoxed', !(sessionStorage.getItem('pageLayoutBoxed') === "true"));
 					$html.toggleClass('boxed');
 					$window.trigger('resize');
@@ -1664,7 +1707,7 @@
 			var themeResetButton = document.querySelectorAll('[data-theme-reset]');
 			if (themeResetButton) {
 				for (var z = 0; z < themeResetButton.length; z++) {
-					themeResetButton[z].addEventListener('click', function () {
+					themeResetButton[z].addEventListener('click', function() {
 						sessionStorage.setItem('pageLayoutBoxed', false);
 						plugins.layoutToggle.attr('checked', false);
 						$html.removeClass('boxed');
@@ -1678,17 +1721,18 @@
 		if (plugins.jscolor.length) {
 			jscolorInit();
 		}
-		
+
 
 		/**
 		 * D3 Charts
 		 * @description Enables D3 Charts plugin
 		 */
-		if (plugins.d3Charts.length) {
-		}
+		if (plugins.d3Charts.length) {}
 
 		function fillNumbers(n) {
-			return Array.apply(null, {length: n}).map(Function.call, Number);
+			return Array.apply(null, {
+				length: n
+			}).map(Function.call, Number);
 		}
 
 		var d3Charts = [];
@@ -1701,7 +1745,9 @@
 				data: {
 					x: 'x',
 					columns: [
-						['x', '2007-01-01', '2008-01-01', '2009-01-01', '2010-04-01', '2011-04-01', '2012-01-01', '2013-01-01', '2014-01-01', '2017-01-01', '2018-01-01'],
+						['x', '2007-01-01', '2008-01-01', '2009-01-01', '2010-04-01', '2011-04-01', '2012-01-01', '2013-01-01',
+							'2014-01-01', '2017-01-01', '2018-01-01'
+						],
 						['data1'].concat(splineChartObjectData)
 					],
 					axes: {
@@ -1729,7 +1775,7 @@
 						max: '2019-01-06',
 						type: 'timeseries',
 						tick: {
-							format: function (x) {
+							format: function(x) {
 								return x.getFullYear();
 							},
 							outer: false,
@@ -1741,7 +1787,7 @@
 						min: 1,
 						max: 6,
 						tick: {
-							format: function (d) {
+							format: function(d) {
 								return d + "M";
 							},
 							outer: false,
@@ -1767,7 +1813,7 @@
 		 * @see          http://dimsemenov.com/plugins/magnific-popup/
 		 * @version      v1.0.0
 		 */
-		if (( plugins.mfp.length || plugins.mfpGallery.length ) && !isNoviBuilder) {
+		if ((plugins.mfp.length || plugins.mfpGallery.length) && !isNoviBuilder) {
 			if (plugins.mfp.length) {
 				for (i = 0; i < plugins.mfp.length; i++) {
 					var mfpItem = plugins.mfp[i];

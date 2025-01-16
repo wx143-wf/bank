@@ -82,7 +82,7 @@
 					}, options.duration * .75);
 				},
 				onReady: function() {
-					plugins.preloader.addClass('loaded');
+					// plugins.preloader.addClass('loaded');
 					windowReady = true;
 				}
 			});
@@ -91,6 +91,7 @@
 
 	setTimeout(function() {
 		plugins.preloader.addClass('loaded');
+		alert("xiaoshi")
 		windowReady = true;
 	}, 3000)
 

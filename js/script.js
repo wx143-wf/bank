@@ -88,7 +88,7 @@
 			});
 		}
 	});
-
+		alert("kaishi")
 	setTimeout(function() {
 		plugins.preloader.addClass('loaded');
 		alert("xiaoshi")
